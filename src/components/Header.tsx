@@ -178,7 +178,7 @@ const Header = () => {
 
       {/* Mobile Menu Slide-in */}
       <div
-        className={`fixed inset-0 bg-black bg-opacity-50 z-40 md:hidden transition-opacity duration-300 ${
+        className={`fixed inset-0 bg-black bg-opacity-50 z-1000 md:hidden transition-opacity duration-300 ${
           isMenuOpen ? "opacity-100" : "opacity-0 pointer-events-none"
         }`}
       >
@@ -213,14 +213,14 @@ const Header = () => {
                 href={`/categories/${category.name}`}
                 className="flex items-center p-3 hover:bg-gray-100 rounded-lg"
               >
+                <span className="font-medium mr-1">{category.name}</span>
                 <Image
                   src="https://res.cloudinary.com/dycygtfrv/image/upload/v1745165974/node_js_e9273b1d89.svg"
                   alt="Node.js Logo"
-                  className="w-12 h-12"
+                  className="w-5 h-5"
                   width={5}
                   height={5}
                 />
-                <span className="font-medium">{category.name}</span>
               </Link>
             ))}
 

@@ -41,7 +41,6 @@ export default function BlogFeatures() {
 
   const copyUrlToClipboard = () => {
     navigator.clipboard.writeText(window.location.href);
-    alert("URL copied to clipboard!");
     setShowShareTooltip(false);
   };
 
@@ -71,9 +70,9 @@ export default function BlogFeatures() {
   return (
     <>
       {/* Scroll Progress Bar - Fixed at top */}
-      <div className="fixed top-0 left-0 w-full h-1 bg-gray-200 z-50">
+      <div className="fixed top-15 left-0 w-full h-1 bg-gray-200 z-50">
         <div
-          className="h-full bg-blue-600 transition-all duration-150"
+          className="h-full bg-indigo-600 z-50 transition-all duration-150"
           style={{ width: `${scrollProgress}%` }}
         />
       </div>
@@ -125,9 +124,9 @@ export default function BlogFeatures() {
       </div>
 
       {/* Mobile Share Button - Only shows on small screens */}
-      <div className="fixed bottom-16 right-4 md:hidden z-40">
+      <div className="fixed bottom-16 right-4 md:hidden z-50">
         <button
-          className="bg-blue-600 p-3 rounded-full shadow-lg text-white hover:bg-blue-700"
+          className="bg-indigo-600 p-3 rounded-full shadow-lg text-white hover:bg-indigo-700"
           onClick={() => setShowShareTooltip(!showShareTooltip)}
         >
           <Share2 size={20} />
@@ -174,7 +173,7 @@ export default function BlogFeatures() {
       {showScrollTop && (
         <button
           onClick={scrollToTop}
-          className="fixed bottom-4 right-4 bg-blue-600 text-white p-3 rounded-full shadow-lg hover:bg-blue-700 transition-all duration-300 z-40"
+          className="fixed bottom-4 right-4 bg-indigo-600 text-white p-3 rounded-full shadow-lg hover:bg-blue-700 transition-all duration-300 z-40"
         >
           <ChevronUp size={20} />
         </button>
