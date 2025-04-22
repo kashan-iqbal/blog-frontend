@@ -178,7 +178,7 @@ const Header = () => {
 
       {/* Mobile Menu Slide-in */}
       <div
-        className={`fixed inset-0 bg-black bg-opacity-50 z-1000 md:hidden transition-opacity duration-300 ${
+        className={`fixed inset-0 bg-black bg-opacity-50  md:hidden transition-opacity duration-300 ${
           isMenuOpen ? "opacity-100" : "opacity-0 pointer-events-none"
         }`}
       >

@@ -70,9 +70,9 @@ export default function BlogFeatures() {
   return (
     <>
       {/* Scroll Progress Bar - Fixed at top */}
-      <div className="fixed top-15 left-0 w-full h-1 bg-gray-200 z-50">
+      <div className="fixed top-15 left-0 w-full h-1 z-50 bg-gray-200 ">
         <div
-          className="h-full bg-indigo-600 z-50 transition-all duration-150"
+          className="h-full bg-indigo-600  transition-all duration-150"
           style={{ width: `${scrollProgress}%` }}
         />
       </div>
@@ -124,7 +124,7 @@ export default function BlogFeatures() {
       </div>
 
       {/* Mobile Share Button - Only shows on small screens */}
-      <div className="fixed bottom-16 right-4 md:hidden z-50">
+      <div className="fixed bottom-16 right-4 md:hidden z-40">
         <button
           className="bg-indigo-600 p-3 rounded-full shadow-lg text-white hover:bg-indigo-700"
           onClick={() => setShowShareTooltip(!showShareTooltip)}

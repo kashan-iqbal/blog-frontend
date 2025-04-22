@@ -1,6 +1,7 @@
 import axios from "axios";
 import { Heart } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import React, { useEffect, useState } from "react";
 
 export interface BlogDetail {
@@ -145,30 +146,32 @@ const RelatedBlog = ({ blog, catageory, slug }) => {
             key={blog.id}
             className="bg-white shadow-md rounded-lg overflow-hidden hover:shadow-lg transition-all"
           >
-            <Image
-              src={`${blog.cover_image.url}`}
-              alt={blog.title}
-              height={100}
-              width={100}
-              className="w-full h-40 object-cover"
-            />
-            <div className="p-4">
-              <h3 className="font-bold text-lg mb-2 line-clamp-2">
-                {blog.title}
-              </h3>
-              <p className="text-gray-600 text-sm mb-4 line-clamp-2">
-                {blog.content.children[0].text}
-              </p>
-              <div className="flex justify-between items-center">
-                <span className="text-sm text-gray-500">
-                  {/* {blog.auther.name} */}
-                </span>
-                <div className="flex items-center text-gray-500 text-sm">
-                  <Heart size={14} className="mr-1" />
-                  {/* {blog.likes} */}
+            <Link href={`http://localhost:3000/blog/${blog.slug}`}>
+              <Image
+                src={`${blog.cover_image.url}`}
+                alt={blog.title}
+                height={100}
+                width={100}
+                className="w-full h-40 object-cover"
+              />
+              <div className="p-4">
+                <h3 className="font-bold text-lg mb-2 line-clamp-2">
+                  {blog.title}
+                </h3>
+                <p className="text-gray-600 text-sm mb-4 line-clamp-2">
+                  {blog.content.children[0].text}
+                </p>
+                <div className="flex justify-between items-center">
+                  <span className="text-sm text-gray-500">
+                    {/* {blog.auther.name} */}
+                  </span>
+                  <div className="flex items-center text-gray-500 text-sm">
+                    <Heart size={14} className="mr-1" />
+                    {/* {blog.likes} */}
+                  </div>
                 </div>
               </div>
-            </div>
+            </Link>
           </div>
         ))}
     </>
