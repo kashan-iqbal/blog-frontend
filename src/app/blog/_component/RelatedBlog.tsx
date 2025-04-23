@@ -1,3 +1,4 @@
+"use client";
 import axios from "axios";
 import { Heart } from "lucide-react";
 import Image from "next/image";
@@ -86,7 +87,7 @@ export interface Pagination {
   total: number;
 }
 
-const RelatedBlog = ({ blog, catageory, slug }) => {
+const RelatedBlog = ({ catageory, slug }) => {
   const [relatedBlogs, setRelatedBlogs] = useState<data[]>([]);
 
   useEffect(() => {

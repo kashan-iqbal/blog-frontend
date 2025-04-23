@@ -1,19 +1,6 @@
 "use client";
-import { useEffect, useState } from "react";
-import {
-  Heart,
-  MessageCircle,
-  Bookmark,
-  User,
-  Clock,
-  Share2,
-  Send,
-  ArrowLeft,
-} from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
-import { useParams } from "next/navigation";
-import axios from "axios";
 import dayjs from "dayjs";
 import Article from "../_component/markdown";
 import { useGetBlogDetail } from "../Hook/ApiHook";
@@ -23,125 +10,30 @@ import BlogFeatures from "../_component/BlogFeature";
 
 dayjs.extend(relativeTime);
 
-export default function BlogDetail() {
-  const [comment, setComment] = useState("");
-  const [comments, setComments] = useState([
-    {
-      id: 1,
-      author: "Maria Johnson",
-      authorImg: "/api/placeholder/40/40",
-      content:
-        "This article was incredibly helpful! I've been struggling with optimizing my Tailwind setup and your tips about purging unused CSS really made a difference.",
-      time: "2 days ago",
-      likes: 8,
-    },
-    {
-      id: 2,
-      author: "David Chen",
-      authorImg: "/api/placeholder/40/40",
-      content:
-        "Great insights on the JIT compiler. Have you considered doing a follow-up piece on how this impacts larger projects with multiple team members?",
-      time: "1 day ago",
-      likes: 5,
-    },
-  ]);
-
-  const [isLiked, setIsLiked] = useState(false);
-  const [isSaved, setIsSaved] = useState(false);
-  const [likedComments, setLikedComments] = useState({});
-
-  const { slug } = useParams();
-
+export default function BlogDetail({ slug }) {
   const { data, error, loading } = useGetBlogDetail(
     Array.isArray(slug) ? slug[0] : slug || ""
   );
 
-  // Related blog posts
-  const relatedBlogs = [
-    {
-      id: 3,
-      title: "Building Accessible Web Applications",
-      description:
-        "Learn how to make your web applications accessible to everyone. Discover best practices and tools to improve user experience for all users.",
-      image: "/api/placeholder/400/200",
-      author: "Marcus Williams",
-      time: "3 days ago",
-      likes: 207,
-      comments: 32,
-      tags: ["Accessibility", "UX", "Frontend"],
-    },
-    {
-      id: 5,
-      title: "Creating Stunning Animations with CSS and JavaScript",
-      description:
-        "Learn how to create beautiful animations that enhance user experience without compromising performance. Practical examples included.",
-      image: "/api/placeholder/400/200",
-      author: "Carlos Rodriguez",
-      time: "2 weeks ago",
-      likes: 143,
-      comments: 29,
-      tags: ["Animation", "CSS", "JavaScript"],
-    },
-    {
-      id: 1,
-      title: "Modern Web Development Trends in 2025",
-      description:
-        "Explore the latest technologies and methodologies shaping the future of web development. Learn about AI integration, serverless architecture, and more.",
-      image: "/api/placeholder/400/200",
-      author: "Alex Johnson",
-      time: "2 hours ago",
-      likes: 128,
-      comments: 24,
-      tags: ["Development", "Tech", "AI"],
-    },
-  ];
-
   // Tag colors mapping
-  const tagColors = {
-    CSS: "text-pink-600 bg-pink-50 border-pink-200",
-    Design: "text-indigo-600 bg-indigo-50 border-indigo-200",
-    Frontend: "text-cyan-600 bg-cyan-50 border-cyan-200",
-    Accessibility: "text-amber-600 bg-amber-50 border-amber-200",
-    UX: "text-teal-600 bg-teal-50 border-teal-200",
-    Animation: "text-rose-600 bg-rose-50 border-rose-200",
-    Development: "text-purple-600 bg-purple-50 border-purple-200",
-    Tech: "text-blue-600 bg-blue-50 border-blue-200",
-    AI: "text-green-600 bg-green-50 border-green-200",
-    JavaScript: "text-red-600 bg-red-50 border-red-200",
-  };
-
-  const handleCommentSubmit = (e) => {
-    e.preventDefault();
-    if (comment.trim()) {
-      const newComment = {
-        id: comments.length + 1,
-        author: "Current User",
-        authorImg: "/api/placeholder/40/40",
-        content: comment,
-        time: "Just now",
-        likes: 0,
-      };
-      setComments([...comments, newComment]);
-      setComment("");
-    }
-  };
-
-  const toggleCommentLike = (id) => {
-    setLikedComments((prev) => ({
-      ...prev,
-      [id]: !prev[id],
-    }));
-  };
+  // const tagColors = {
+  //   CSS: "text-pink-600 bg-pink-50 border-pink-200",
+  //   Design: "text-indigo-600 bg-indigo-50 border-indigo-200",
+  //   Frontend: "text-cyan-600 bg-cyan-50 border-cyan-200",
+  //   Accessibility: "text-amber-600 bg-amber-50 border-amber-200",
+  //   UX: "text-teal-600 bg-teal-50 border-teal-200",
+  //   Animation: "text-rose-600 bg-rose-50 border-rose-200",
+  //   Development: "text-purple-600 bg-purple-50 border-purple-200",
+  //   Tech: "text-blue-600 bg-blue-50 border-blue-200",
+  //   AI: "text-green-600 bg-green-50 border-green-200",
+  //   JavaScript: "text-red-600 bg-red-50 border-red-200",
+  // };
 
   console.log(data, loading, error, `i am the data page detail`);
 
   if (!data) {
     return <div>Loading...</div>;
   }
-  const { seo } = data.data[0];
-
-  const metaDescription = seo[0]?.metaDescription || "Default description";
-  const metaTitle = seo[0]?.metaTitle || "Default title";
 
   const blogDetail = data.data[0];
 
@@ -302,7 +194,6 @@ export default function BlogDetail() {
           <h2 className="text-2xl font-bold mb-6">Related Articles</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <RelatedBlog
-              blog={relatedBlogs}
               catageory={blogDetail.catageory}
               slug={blogDetail.slug}
             />

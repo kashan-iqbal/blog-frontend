@@ -41,6 +41,18 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       canonical:
         seo?.canonicalURL || `https://yourdomain.com/blog/${params.slug}`,
     },
+    openGraph: {
+      title: seo?.metaTitle || "Default Blog Title",
+      description: seo?.metaDescription || "Default Description",
+      url: `https://yourdomain.com/blog/${params.slug}`,
+      images: [
+        {
+          url: seo?.image?.url || "https://yourdomain.com/default-image.jpg",
+          width: 800,
+          height: 600,
+        },
+      ],
+    },
   };
 }
 
