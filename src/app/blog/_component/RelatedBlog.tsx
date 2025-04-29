@@ -87,13 +87,16 @@ export interface Pagination {
   total: number;
 }
 
-const RelatedBlog = ({ catageory, slug }) => {
+interface Props {
+  catageory: Catageory;
+  slug: string;
+}
+
+const RelatedBlog = ({ catageory, slug }: Props) => {
   const [relatedBlogs, setRelatedBlogs] = useState<data[]>([]);
 
   useEffect(() => {
     if (!catageory?.name) return;
-
-    console.log(catageory.name);
 
     const fetchRelatedBlogs = async () => {
       try {
@@ -121,7 +124,6 @@ const RelatedBlog = ({ catageory, slug }) => {
           }
         );
 
-        console.log("Related Blogs API Response:", data);
         setRelatedBlogs(data.data);
       } catch (err) {
         console.error("Axios error fetching related blogs:", err);
@@ -129,9 +131,7 @@ const RelatedBlog = ({ catageory, slug }) => {
     };
 
     fetchRelatedBlogs();
-  }, [catageory]);
-
-  console.log(relatedBlogs, "relatedBlogs");
+  }, [slug, catageory]);
 
   if (relatedBlogs.length === 0) {
     return (

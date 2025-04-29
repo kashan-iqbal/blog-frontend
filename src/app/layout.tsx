@@ -21,7 +21,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.variable} ${inter.variable} antialiased `}>
+      <body
+        className={`${inter.variable} ${inter.variable} antialiased bg-gradient-to-b from-indigo-50 to-white`}
+      >
         <Header />
         {children}
         <Footer />

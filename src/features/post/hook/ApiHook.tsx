@@ -26,7 +26,10 @@ export const useBlogPosts = () => {
       id: number;
       documentId: string;
       url: string;
-      formats?: Record<string, any>; // Customize if you know your image formats structure
+      formats?: Record<
+        string,
+        { url: string; width?: number; height?: number }
+      >; // Replace with the actual structure of your image formats
     };
     auther: {
       id: number;
@@ -68,7 +71,7 @@ export const useBlogPosts = () => {
             image: item.cover_image?.url || "/fallback-image.jpg",
             author: item.auther?.name || "Unknown",
             time: dayjs(item.createdAt).fromNow(),
-            tags: item?.tags?.map((tags) => tags?.tag) || [],
+            tags: item?.tags?.map((tags) => tags?.name) || [],
           };
         });
         setBlogs(formattedBlog);

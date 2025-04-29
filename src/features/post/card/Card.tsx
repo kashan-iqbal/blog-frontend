@@ -15,17 +15,24 @@ import Link from "next/link";
 const Cards = () => {
   const { blogs, loading, error } = useBlogPosts();
 
-  console.log(blogs, loading, error);
+  if (loading) {
+    <div className="container mx-auto py-12 mt-4 text-center">Loading....</div>;
+  }
+
+  if (error) {
+    return (
+      <div className="container mx-auto py-12 mt-4 text-center">
+        Failed to load blog posts
+      </div>
+    );
+  }
 
   return (
     <div className="flex flex-wrap justify-center gap-6">
       {blogs.length > 0 &&
         blogs.map((blog) => (
-          <div
-            key={blog.id}
-            className="bg-white rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 w-full md:w-5/12 lg:w-80 xl:w-96 flex flex-col cursor-pointer"
-          >
-            <Link href={`/blog/${blog.slug}`}>
+          <Link key={blog.id} href={`/blog/${blog.slug}`}>
+            <div className="bg-white rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 w-full md:w-5/12 lg:w-80 xl:w-96 flex flex-col cursor-pointer">
               {/* Image */}
               <div className="relative w-full h-48">
                 <Image
@@ -49,8 +56,8 @@ const Cards = () => {
                     {blog.tags.map((tag, index) => (
                       <a
                         key={index}
-                        href={`#${tag.toLowerCase()}`}
-                        className={`text-blue-600 bg-blue-50 border-blue-200'} text-xs font-medium px-2 py-1 rounded border cursor-pointer hover:shadow-sm transition-all`}
+                        href={`#${tag}`}
+                        className={`text-blue-600 bg-blue-50 border-blue-200 text-xs font-medium px-2 py-1 rounded border cursor-pointer hover:shadow-sm transition-all`}
                       >
                         #{tag}
                       </a>
@@ -58,17 +65,17 @@ const Cards = () => {
                   </div>
                 </div>
 
-                <p className="text-gray-600 mb-4 text-sm line-clamp-3">
+                {/* <p className="text-gray-600 mb-4 text-sm line-clamp-3">
                   {blog.description}......
-                </p>
+                </p> */}
 
                 {/* Author and time */}
                 <div className="flex items-center mb-4">
-                  <p className="text-sm font-medium mr-2">{blog.author}</p>
                   <div className="flex items-center text-xs text-gray-500">
                     <Clock size={12} className="mr-1" />
                     {blog.time}
                   </div>
+                  <p className="text-xs font-medium ml-2"> By({blog.author})</p>
                 </div>
 
                 {/* Push interaction bar to bottom with flex-grow */}
@@ -122,8 +129,8 @@ const Cards = () => {
                   </div>
                 </div>
               </div>
-            </Link>
-          </div>
+            </div>
+          </Link>
         ))}
     </div>
   );

@@ -44,7 +44,7 @@ export default function BlogFeatures() {
     setShowShareTooltip(false);
   };
 
-  const shareOnSocial = (platform) => {
+  const shareOnSocial = (platform: string) => {
     const url = encodeURIComponent(window.location.href);
     const title = encodeURIComponent(document.title);
 
