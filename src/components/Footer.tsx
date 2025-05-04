@@ -1,6 +1,5 @@
-"use client";
 import Link from "next/link";
-import { Github, Twitter, Linkedin, Mail, Rss, Heart } from "lucide-react";
+import { Github, Linkedin, Mail, Heart } from "lucide-react";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -19,23 +18,16 @@ const Footer = () => {
             </p>
             <div className="flex space-x-4 pt-2">
               <a
-                href="https://github.com/yourusername"
+                href="https://github.com/kashan-iqbal"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-gray-500 hover:text-indigo-600"
               >
                 <Github size={20} />
               </a>
+
               <a
-                href="https://twitter.com/yourusername"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-gray-500 hover:text-indigo-600"
-              >
-                <Twitter size={20} />
-              </a>
-              <a
-                href="https://linkedin.com/in/yourusername"
+                href="https://www.linkedin.com/in/kashan-iqbal-2b051a24a/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-gray-500 hover:text-indigo-600"
@@ -43,18 +35,10 @@ const Footer = () => {
                 <Linkedin size={20} />
               </a>
               <a
-                href="mailto:your.email@example.com"
+                href="mailto:kashan.tech.io@gmail.com"
                 className="text-gray-500 hover:text-indigo-600"
               >
                 <Mail size={20} />
-              </a>
-              <a
-                href="/rss"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-gray-500 hover:text-indigo-600"
-              >
-                <Rss size={20} />
               </a>
             </div>
           </div>
@@ -63,14 +47,7 @@ const Footer = () => {
           <div className="space-y-4">
             <h3 className="text-lg font-bold text-gray-900">Quick Links</h3>
             <ul className="space-y-2">
-              <li>
-                <Link
-                  href="/about"
-                  className="text-gray-600 hover:text-indigo-600"
-                >
-                  About Me
-                </Link>
-              </li>
+              <li></li>
               <li>
                 <Link
                   href="/projects"
@@ -80,19 +57,24 @@ const Footer = () => {
                 </Link>
               </li>
               <li>
-                <Link
-                  href="/blog"
-                  className="text-gray-600 hover:text-indigo-600"
-                >
+                <Link href="/" className="text-gray-600 hover:text-indigo-600">
                   All Posts
                 </Link>
               </li>
               <li>
                 <Link
-                  href="/uses"
+                  href="/about"
                   className="text-gray-600 hover:text-indigo-600"
                 >
-                  Uses
+                  About
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/terms"
+                  className="text-gray-600 hover:text-indigo-600"
+                >
+                  Term & Conditions
                 </Link>
               </li>
               <li>
@@ -101,6 +83,14 @@ const Footer = () => {
                   className="text-gray-600 hover:text-indigo-600"
                 >
                   Contact
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/privacy-policy"
+                  className="text-gray-600 hover:text-indigo-600"
+                >
+                  privacy-policy
                 </Link>
               </li>
             </ul>

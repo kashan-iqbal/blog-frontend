@@ -43,7 +43,7 @@ export const useBlogPosts = () => {
     };
     tags: Array<{
       id: number;
-      name: string;
+      tag: string;
       documentId: string;
     }>;
     createdAt: string; // ISO date string
@@ -54,7 +54,7 @@ export const useBlogPosts = () => {
       try {
         setLoading(true);
         const { data } = await axios.get(
-          "http://localhost:1337/api/blogs?fields[0]=title&fields[1]=slug&fields[2]=id&fields[3]=createdAt&fields[4]=content&populate[cover_image][fields][0]=url&populate[cover_image][fields][1]=formats&populate[auther][fields][0]=name&populate[catageory][fields][0]=name&populate[tags][fields][0]=tag",
+          "http://localhost:1337/api/blogs?fields[0]=title&fields[1]=slug&fields[2]=id&fields[3]=createdAt&fields[4]=content&populate[cover_image][fields][0]=url&populate[cover_image][fields][1]=formats&populate[auther][fields][0]=name&populate[catageory][fields][0]=name&populate[tags][fields][0]=tag&sort[0]=createdAt:desc&pagination[page]=1&pagination[pageSize]=10",
           {
             headers: {
               Authorization: `Bearer ${process.env.NEXT_PUBLIC_TOKEN}`,
@@ -71,7 +71,7 @@ export const useBlogPosts = () => {
             image: item.cover_image?.url || "/fallback-image.jpg",
             author: item.auther?.name || "Unknown",
             time: dayjs(item.createdAt).fromNow(),
-            tags: item?.tags?.map((tags) => tags?.name) || [],
+            tags: item?.tags?.map((tags) => tags.tag) || [],
           };
         });
         setBlogs(formattedBlog);
