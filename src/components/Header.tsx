@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { Menu, Search, X, Home, ChevronDown, ChevronRight } from "lucide-react";
 import axios from "axios";
 import Image from "next/image";
+import logo from "@/../public/Adobe Express - file.png";
 
 type Icon = {
   id: number;
@@ -60,14 +61,14 @@ const Header = () => {
     try {
       // http://localhost:1337/api/parrent-catageories?populate[catageories][populate]=icon
       const { data } = await axios.get(
-        "http://localhost:1337/api/parrent-catageories?populate[catageories][populate]=icon",
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/parrent-catageories?populate[catageories][populate]=icon`,
         {
           headers: {
             Authorization: `Bearer ${process.env.NEXT_PUBLIC_TOKEN}`,
           },
         }
       );
-
+      console.log(data, `i am the reponce`);
       setCategories(data?.data);
     } catch (error) {
       console.error("Error fetching categories:", error);
@@ -139,7 +140,9 @@ const Header = () => {
               className="flex items-center"
               aria-label="DevBlog Home"
             >
-              <div className="font-bold text-lg text-indigo-600">DevBlog</div>
+              <div className="font-bold text-lg text-indigo-600">
+                <Image src={logo} alt="logo" height={100} width={100} />
+              </div>
             </Link>
           </div>
 

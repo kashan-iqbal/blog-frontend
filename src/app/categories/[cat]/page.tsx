@@ -55,7 +55,9 @@ const CategoryPage = async ({ params }: CategoryPageProps) => {
   const category = decodeURIComponent(cat);
 
   const res = await fetch(
-    `http://localhost:1337/api/blogs?filters[catageory][name][$eq]=${encodeURIComponent(
+    `${
+      process.env.NEXT_PUBLIC_BACKEND_URL
+    }/api/blogs?filters[catageory][name][$eq]=${encodeURIComponent(
       category
     )}&fields[0]=title&fields[1]=slug&fields[2]=id&fields[3]=createdAt&fields[4]=content&populate[cover_image][fields][0]=url&populate[cover_image][fields][1]=formats&populate[auther][fields][0]=name&populate[catageory][fields][0]=name&populate[tags][fields][0]=tag`,
     {

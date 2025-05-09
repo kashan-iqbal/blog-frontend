@@ -1,11 +1,22 @@
-import Cards from "./../features/post/card/Card";
+// app/page.tsx
+import { SkeletonCard } from "@/components/skeleton";
+import Cards from "@/features/post/card/Card";
+import { Suspense } from "react";
 
 export default function Home() {
   return (
-    <div className="container mx-auto px-1 py-8 mt-18 ">
-      <h1 className="text-3xl font-bold mb-8 text-center">My Blog</h1>
-
-      <Cards />
+    <div className="container mx-auto px-1 py-8 mt-18">
+      <Suspense
+        fallback={
+          <div className="flex flex-wrap justify-center items-center gap-6">
+            {[...Array(6)].map((_, i) => (
+              <SkeletonCard key={i} />
+            ))}
+          </div>
+        }
+      >
+        <Cards />
+      </Suspense>
     </div>
   );
 }

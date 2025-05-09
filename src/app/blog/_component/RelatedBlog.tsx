@@ -101,7 +101,7 @@ const RelatedBlog = ({ catageory, slug }: Props) => {
     const fetchRelatedBlogs = async () => {
       try {
         const { data } = await axios.get<BlogDetail>(
-          `http://localhost:1337/api/blogs`,
+          `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/blogs`,
           {
             headers: {
               Authorization: `Bearer ${process.env.NEXT_PUBLIC_TOKEN}`,
@@ -147,7 +147,9 @@ const RelatedBlog = ({ catageory, slug }: Props) => {
             key={blog.id}
             className="bg-white shadow-md rounded-lg overflow-hidden hover:shadow-lg transition-all"
           >
-            <Link href={`http://localhost:3000/blog/${blog.slug}`}>
+            <Link
+              href={`${process.env.NEXT_PUBLIC_FRONTEND_URL}/blog/${blog.slug}`}
+            >
               <Image
                 src={`${blog.cover_image.url}`}
                 alt={blog.title}

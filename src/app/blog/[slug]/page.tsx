@@ -112,7 +112,6 @@ export default async function BlogPage({ params }: PageProps) {
       seo,
       catageory,
     } = blog;
-
     return (
       <div className="bg-gradient-to-b from-indigo-50 to-white min-h-screen pb-12 mt-18">
         {/* Structured Data for SEO */}
@@ -131,7 +130,7 @@ export default async function BlogPage({ params }: PageProps) {
           {/* Hero Image */}
           <div className="relative w-full h-80 mb-6">
             <Image
-              src={cover_image?.formats.medium.url ?? "/placeholder-image.jpg"}
+              src={cover_image.url || cover_image?.formats.thumbnail.url}
               alt={title ?? "Blog post"}
               fill
               className="rounded-2xl object-cover"

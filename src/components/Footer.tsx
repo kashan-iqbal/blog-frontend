@@ -22,6 +22,7 @@ const Footer = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-gray-500 hover:text-indigo-600"
+                aria-label="GitHub profile of Kashan Iqbal"
               >
                 <Github size={20} />
               </a>
@@ -31,12 +32,15 @@ const Footer = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-gray-500 hover:text-indigo-600"
+                aria-label="LinkedIn profile of Kashan Iqbal"
               >
                 <Linkedin size={20} />
               </a>
+
               <a
                 href="mailto:kashan.tech.io@gmail.com"
                 className="text-gray-500 hover:text-indigo-600"
+                aria-label="Send an email to Kashan Iqbal"
               >
                 <Mail size={20} />
               </a>
