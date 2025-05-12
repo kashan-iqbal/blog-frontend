@@ -1,5 +1,27 @@
 import React from "react";
 import Link from "next/link";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "About Us | MERN Blog",
+  description:
+    "MERN Blog is a modern tech blog focused on the MERN stack, system design, design patterns, and real-world engineering fixes.",
+  alternates: {
+    canonical: "https://mernblog.com/about",
+  },
+  openGraph: {
+    title: "About MERN Blog",
+    description:
+      "Learn more about the mission and team behind MERN Blog — your go-to source for MERN stack and software engineering insights.",
+    url: "https://mernblog.com/about",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "About MERN Blog",
+    description:
+      "Discover why developers trust MERN Blog for modern web engineering content.",
+  },
+};
 
 export default function About() {
   return (

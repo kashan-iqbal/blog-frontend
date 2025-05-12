@@ -1,9 +1,11 @@
+// app/category/[cat]/page.tsx
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Tag, Clock } from "lucide-react";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
+import type { Metadata } from "next";
 
 dayjs.extend(relativeTime);
 
@@ -50,9 +52,52 @@ interface CategoryPageProps {
   params: Promise<{ cat: string }>;
 }
 
+// ✅ Dynamic Metadata for SEO
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ cat: string }>;
+}): Promise<Metadata> {
+  const param = await params;
+  const category = decodeURIComponent(param?.cat);
+  const baseUrl =
+    process.env.NEXT_PUBLIC_FRONTEND_URL || "https://mernblog.com";
+
+  return {
+    metadataBase: new URL(`${process.env.NEXT_PUBLIC_FRONTEND_URL}`),
+
+    title: `${category} Blogs - MERN Blog`,
+    description: `Explore in-depth articles and tutorials on ${category} from the MERN Blog — system design, debugging, architecture, and dev tips.`,
+    alternates: {
+      canonical: `${baseUrl}/category/${encodeURIComponent(category)}`,
+    },
+    openGraph: {
+      title: `${category} Blogs - MERN Blog`,
+      description: `Hand-picked blogs in ${category} — deep dives into MERN stack development, debugging, and architecture.`,
+      url: `${baseUrl}/category/${encodeURIComponent(category)}`,
+      type: "website",
+      images: [
+        {
+          url: "/COVER_IMAGE.svg", // Your local OG image in /public
+          width: 1200,
+          height: 630,
+          alt: `${category} - MERN Blog`,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${category} Blogs - MERN Blog`,
+      description: `Read about ${category} and more on MERN Blog — expert tips for developers.`,
+      images: ["/og-cover.png"],
+    },
+  };
+}
+
+// ✅ Actual Page Component
 const CategoryPage = async ({ params }: CategoryPageProps) => {
-  const { cat } = await params;
-  const category = decodeURIComponent(cat);
+  const param = await params;
+  const category = decodeURIComponent(param?.cat);
 
   const res = await fetch(
     `${
@@ -88,8 +133,7 @@ const CategoryPage = async ({ params }: CategoryPageProps) => {
   return (
     <div className="bg-gradient-to-b from-indigo-50 to-white min-h-screen pb-12 mt-18">
       <h1 className="text-center text-3xl font-bold my-8">
-        Blogs in{" "}
-        <span className="text-indigo-600"> &quot;{category}&quot;</span>{" "}
+        Blogs in <span className="text-indigo-600">&quot;{category}&quot;</span>{" "}
         Category
       </h1>
 

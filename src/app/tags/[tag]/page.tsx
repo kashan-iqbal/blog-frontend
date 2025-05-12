@@ -4,8 +4,49 @@ import Link from "next/link";
 import { Tag, Clock } from "lucide-react";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
+import { Metadata } from "next";
 
 dayjs.extend(relativeTime);
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ tag: string }>;
+}): Promise<Metadata> {
+  const param = await params;
+  const tag = decodeURIComponent(param?.tag);
+  const baseUrl =
+    process.env.NEXT_PUBLIC_FRONTEND_URL || "https://mernblog.com";
+  const url = `${baseUrl}/tags/${encodeURIComponent(tag)}`;
+
+  return {
+    title: `${tag} Blogs & Tutorials | MERN Blog`,
+    description: `Read insightful blog posts and tutorials related to ${tag}. Deep dives, fixes, and expert content on the MERN stack and beyond.`,
+    alternates: {
+      canonical: url,
+    },
+    openGraph: {
+      title: `${tag} Blogs & Tutorials | MERN Blog`,
+      description: `Explore the latest MERN blog articles related to ${tag}.`,
+      url,
+      type: "website",
+      images: [
+        {
+          url: "/COVER_IMAGE.svg", // Your local OG image in /public
+          width: 1200,
+          height: 630,
+          alt: "MERN Blog Cover",
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${tag} Blogs | MERN Blog`,
+      description: `Explore posts on ${tag} in the MERN Blog.`,
+      images: ["/COVER_IMAGE.svg"],
+    },
+  };
+}
 
 interface CoverImageFormat {
   url: string;

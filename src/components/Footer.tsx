@@ -1,8 +1,64 @@
+"use client";
 import Link from "next/link";
 import { Github, Linkedin, Mail, Heart } from "lucide-react";
+import { useState, FormEvent } from "react";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
+
+  const [email, setEmail] = useState<string>("");
+  const [status, setStatus] = useState<{
+    loading: boolean;
+    success: string | null;
+    error: string | null;
+  }>({
+    loading: false,
+    success: null,
+    error: null,
+  });
+
+  const handleNewsletterSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      setStatus({
+        loading: false,
+        success: null,
+        error: "Please enter a valid email.",
+      });
+      return;
+    }
+
+    setStatus({ loading: true, success: null, error: null });
+
+    try {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/news-letters`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${process.env.NEXT_PUBLIC_TOKEN}`,
+          },
+
+          body: JSON.stringify({ data: { email } }),
+        }
+      );
+
+      console.log(response);
+      if (!response.ok) throw new Error("Failed to subscribe.");
+
+      setStatus({ loading: false, success: "You're subscribed!", error: null });
+      setEmail("");
+    } catch {
+      setStatus({
+        loading: false,
+        success: null,
+        error: "Subscription failed. Please try again.",
+      });
+    }
+  };
 
   return (
     <footer className="bg-white border-t mt-12">
@@ -26,7 +82,6 @@ const Footer = () => {
               >
                 <Github size={20} />
               </a>
-
               <a
                 href="https://www.linkedin.com/in/kashan-iqbal-2b051a24a/"
                 target="_blank"
@@ -36,7 +91,6 @@ const Footer = () => {
               >
                 <Linkedin size={20} />
               </a>
-
               <a
                 href="mailto:kashan.tech.io@gmail.com"
                 className="text-gray-500 hover:text-indigo-600"
@@ -51,7 +105,6 @@ const Footer = () => {
           <div className="space-y-4">
             <h3 className="text-lg font-bold text-gray-900">Quick Links</h3>
             <ul className="space-y-2">
-              <li></li>
               <li>
                 <Link
                   href="/projects"
@@ -78,7 +131,7 @@ const Footer = () => {
                   href="/terms"
                   className="text-gray-600 hover:text-indigo-600"
                 >
-                  Term & Conditions
+                  Terms & Conditions
                 </Link>
               </li>
               <li>
@@ -94,7 +147,7 @@ const Footer = () => {
                   href="/privacy-policy"
                   className="text-gray-600 hover:text-indigo-600"
                 >
-                  privacy-policy
+                  Privacy Policy
                 </Link>
               </li>
             </ul>
@@ -107,21 +160,30 @@ const Footer = () => {
               Subscribe to my newsletter to get notified about new posts and
               updates.
             </p>
-            <form className="mt-2">
+            <form className="mt-2" onSubmit={handleNewsletterSubmit}>
               <div className="flex flex-col sm:flex-row gap-2">
                 <input
                   type="email"
                   placeholder="Your email address"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   className="px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 flex-grow"
                   required
                 />
                 <button
                   type="submit"
-                  className="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700 transition-colors"
+                  disabled={status.loading}
+                  className="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700 transition-colors disabled:opacity-50"
                 >
-                  Subscribe
+                  {status.loading ? "Subscribing..." : "Subscribe"}
                 </button>
               </div>
+              {status.error && (
+                <p className="text-sm text-red-600 mt-2">{status.error}</p>
+              )}
+              {status.success && (
+                <p className="text-sm text-green-600 mt-2">{status.success}</p>
+              )}
             </form>
           </div>
         </div>

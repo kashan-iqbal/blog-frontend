@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 import { Menu, Search, X, Home, ChevronDown, ChevronRight } from "lucide-react";
 import axios from "axios";
 import Image from "next/image";
-import logo from "@/../public/Adobe Express - file.png";
+import logo from "@/../public/LOGO.png";
 
 type Icon = {
   id: number;
@@ -309,7 +309,7 @@ function CategoryItem({ category }: { category: Category }) {
           <div className="py-1 ">
             {category.catageories.map((subcategory) => (
               <Link
-                href={`/categories/${subcategory.name}`}
+                href={`/category/${subcategory.name}`}
                 key={subcategory.id}
                 className="block px-4 py-2 text-gray-700 hover:text-indigo-600 hover:bg-gray-50 transition-colors"
               >
@@ -367,7 +367,7 @@ function MobileCategoryItem({ category }: { category: Category }) {
           <div className="pl-6 border-l-2 border-gray-200 ml-3">
             {category.catageories.map((subcategory) => (
               <Link
-                href={`/categories/${subcategory.name}`}
+                href={`/category/${subcategory.name}`}
                 key={subcategory.id}
                 className="flex items-center p-2 hover:bg-gray-50 rounded-lg my-1"
                 onClick={() => setIsOpen(false)}

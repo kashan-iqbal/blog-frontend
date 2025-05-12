@@ -2,10 +2,16 @@
 import { Clock, Tag } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { getBlogPosts } from "../hook/ApiHook"; // Updated data fetching
+import { getBlogPosts } from "../hook/ApiHook";
+import Pagination from "./pagination";
 
-export default async function Cards() {
-  const blogs = await getBlogPosts();
+interface CardsProps {
+  page?: number;
+}
+
+export default async function Cards({ page = 1 }: CardsProps) {
+  const pageSize = 9; // Display 9 posts per page
+  const { blogs, pagination } = await getBlogPosts(page, pageSize);
 
   if (!blogs || blogs.length === 0) {
     return (
@@ -23,7 +29,7 @@ export default async function Cards() {
           <Link
             key={blog.id}
             href={`/blog/${blog.slug}`}
-            className="w-full md:w-[45%] lg:w-[30%] xl:w-[25%]"
+            className="w-full md:w-[45%] lg:w-[30%] xl:w-[30%]"
           >
             <article className="bg-white rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 h-full flex flex-col">
               <div className="relative w-full aspect-video">
@@ -67,6 +73,9 @@ export default async function Cards() {
           </Link>
         ))}
       </div>
+
+      {/* Pagination component */}
+      <Pagination pagination={pagination} basePath="/blog" />
     </>
   );
 }

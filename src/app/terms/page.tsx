@@ -1,5 +1,26 @@
 import React from "react";
 import Link from "next/link";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Terms & Conditions | MERN Blog",
+  description:
+    "Review the terms and conditions that govern your use of the MERN Blog website and services.",
+  alternates: {
+    canonical: "https://mernblog.com/terms",
+  },
+  openGraph: {
+    title: "Terms & Conditions | MERN Blog",
+    description:
+      "By accessing MERN Blog, you agree to abide by our terms and conditions.",
+    url: "https://mernblog.com/terms",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Terms & Conditions | MERN Blog",
+    description: "Understand the rules and policies of using our platform.",
+  },
+};
 
 export default function TermsAndConditions() {
   return (

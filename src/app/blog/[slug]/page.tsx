@@ -75,9 +75,9 @@ export async function generateMetadata({
           {
             url:
               seo.metaImage?.url ??
-              `${process.env.NEXT_PUBLIC_BACKEND_URL}/default-image.jpg`,
-            width: 800,
-            height: 600,
+              `https://og-image.vercel.app/Blog.png?theme=light&md=1&fontSize=100px`,
+            width: 1200,
+            height: 630,
           },
         ],
       },

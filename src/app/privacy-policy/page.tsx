@@ -1,5 +1,26 @@
 import React from "react";
 import Link from "next/link";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Privacy Policy | MERN Blog",
+  description:
+    "Understand how MERN Blog collects, uses, and protects your personal information. Your privacy matters to us.",
+  alternates: {
+    canonical: "https://mernblog.com/privacy-policy",
+  },
+  openGraph: {
+    title: "Privacy Policy | MERN Blog",
+    description:
+      "Learn how we handle your data and ensure your privacy on the MERN Blog.",
+    url: "https://mernblog.com/privacy-policy",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Privacy Policy | MERN Blog",
+    description: "Read how we protect your personal information.",
+  },
+};
 
 export default function PrivacyPolicy() {
   return (
