@@ -64,8 +64,6 @@ export async function generateMetadata({
     process.env.NEXT_PUBLIC_FRONTEND_URL || "https://mernblog.com";
 
   return {
-    metadataBase: new URL(`${process.env.NEXT_PUBLIC_FRONTEND_URL}`),
-
     title: `${category} Blogs - MERN Blog`,
     description: `Explore in-depth articles and tutorials on ${category} from the MERN Blog — system design, debugging, architecture, and dev tips.`,
     alternates: {
