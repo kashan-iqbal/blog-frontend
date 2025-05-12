@@ -3,7 +3,6 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-
 const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
@@ -44,7 +43,6 @@ export const metadata: Metadata = {
       },
     ],
   },
-  metadataBase: new URL(`${process.env.NEXT_PUBLIC_FRONTEND_URL}`),
 };
 
 export default function RootLayout({
