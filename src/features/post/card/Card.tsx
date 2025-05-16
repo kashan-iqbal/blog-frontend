@@ -23,7 +23,9 @@ export default async function Cards({ page = 1 }: CardsProps) {
 
   return (
     <>
-      <h1 className="text-3xl font-bold mb-8 text-center">My Blog</h1>
+      <h1 className="text-5xl font-bold mb-8 text-center text-indigo-600">
+        Full-Stack Insights
+      </h1>
       <div className="flex flex-wrap justify-center items-center gap-6">
         {blogs.map((blog, index) => (
           <Link

@@ -7,53 +7,26 @@ import { Menu, Search, X, Home, ChevronDown, ChevronRight } from "lucide-react";
 import axios from "axios";
 import Image from "next/image";
 import logo from "@/../public/LOGO.png";
-
-type Icon = {
-  id: number;
-  documentId: string;
-  name: string;
-  alternativeText: string | null;
-  caption: string | null;
-  url: string;
-  width?: number;
-  height?: number;
-  formats?: {
-    small?: {
-      url: string;
-    };
-    thumbnail?: {
-      url: string;
-    };
-  };
-  // Add other icon properties as needed
-};
+import { cat } from "./constant";
 
 type Subcategory = {
   id: number;
-  documentId: string;
   name: string;
-  createdAt: string;
-  updatedAt: string;
-  publishedAt: string;
-  locale: string;
-  icon: Icon | null;
+  icon: string;
 };
 
 type Category = {
   id: number;
   name: string;
-  documentId: string;
-  createdAt: string;
-  updatedAt: string;
-  publishedAt: string;
-  catageories: Subcategory[];
+  catageories: Subcategory[] | null;
 };
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const [categories, setCategories] = useState<Category[]>([]);
+  const [categories, setCategories] = useState<Category[]>(cat);
   const [mounted, setMounted] = useState(false);
+  const [openCategoryId, setOpenCategoryId] = useState<number | null>(null);
   const pathname = usePathname();
 
   // Memoize the fetch function to prevent recreating it on every render
@@ -123,7 +96,13 @@ const Header = () => {
   // Close menu when route changes
   useEffect(() => {
     setIsMenuOpen(false);
+    setOpenCategoryId(null);
   }, [pathname]);
+
+  // Handle mobile category toggle
+  const handleCategoryToggle = (categoryId: number) => {
+    setOpenCategoryId(openCategoryId === categoryId ? null : categoryId);
+  };
 
   return (
     <header
@@ -148,10 +127,10 @@ const Header = () => {
 
           {/* Desktop Navigation */}
           <nav
-            className="hidden md:flex items-center space-x-8"
+            className="hidden md:flex items-center space-x-8 "
             aria-label="Main Navigation"
           >
-            <Link
+            {/* <Link
               href="/"
               className={`text-gray-700 hover:text-indigo-600 flex items-center ${
                 pathname === "/" ? "text-indigo-600 font-medium" : ""
@@ -160,7 +139,7 @@ const Header = () => {
             >
               <Home size={18} className="mr-1" aria-hidden="true" />
               <span>Home</span>
-            </Link>
+            </Link> */}
             <CategoryList categories={categories} />
           </nav>
 
@@ -200,7 +179,9 @@ const Header = () => {
               aria-label="Site navigation"
             >
               <div className="flex justify-between items-center p-4 border-b">
-                <h2 className="font-bold text-xl">DevBlog</h2>
+                <h2 className="font-bold text-xl">
+                  <Image src={logo} alt="logo" height={50} width={70} />
+                </h2>
                 <button
                   onClick={() => setIsMenuOpen(false)}
                   className="text-gray-700 p-2"
@@ -228,7 +209,11 @@ const Header = () => {
                 </Link>
                 {categories?.map((category) => (
                   <div key={category.id} className="mb-2">
-                    <MobileCategoryItem category={category} />
+                    <MobileCategoryItem
+                      category={category}
+                      isOpen={openCategoryId === category.id}
+                      onToggle={handleCategoryToggle}
+                    />
                   </div>
                 ))}
               </nav>
@@ -286,7 +271,7 @@ function CategoryItem({ category }: { category: Category }) {
         className="flex items-center text-gray-700 hover:text-indigo-600 cursor-pointer px-2 py-1"
         onClick={handleClick}
       >
-        <span className="font-medium mr-1">{category.name}</span>
+        <span className="font-semibold mr-1">{category.name}</span>
         {hasSubcategories && (
           <span className="text-gray-500">
             {isOpen ? (
@@ -307,7 +292,7 @@ function CategoryItem({ category }: { category: Category }) {
           }`}
         >
           <div className="py-1 ">
-            {category.catageories.map((subcategory) => (
+            {category?.catageories?.map((subcategory) => (
               <Link
                 href={`/category/${subcategory.name}`}
                 key={subcategory.id}
@@ -316,14 +301,14 @@ function CategoryItem({ category }: { category: Category }) {
                 <div className="flex items-center">
                   {subcategory.icon && (
                     <Image
-                      src={subcategory.icon.url}
+                      src={subcategory.icon}
                       alt={`${subcategory.name} icon`}
                       width={20}
                       height={20}
                       className="mr-2 rounded-sm"
                     />
                   )}
-                  <span>{subcategory.name}</span>
+                  <span className="font-light">{subcategory.name}</span>
                 </div>
               </Link>
             ))}
@@ -335,8 +320,15 @@ function CategoryItem({ category }: { category: Category }) {
 }
 
 // Mobile category component
-function MobileCategoryItem({ category }: { category: Category }) {
-  const [isOpen, setIsOpen] = useState(false);
+function MobileCategoryItem({
+  category,
+  isOpen,
+  onToggle,
+}: {
+  category: Category;
+  isOpen: boolean;
+  onToggle: (categoryId: number) => void;
+}) {
   const hasSubcategories =
     category?.catageories && category.catageories.length > 0;
 
@@ -344,7 +336,7 @@ function MobileCategoryItem({ category }: { category: Category }) {
     <>
       <div
         className="flex items-center justify-between p-3 hover:bg-gray-100 rounded-lg cursor-pointer"
-        onClick={() => hasSubcategories && setIsOpen(!isOpen)}
+        onClick={() => hasSubcategories && onToggle(category.id)}
       >
         <span className="font-medium">{category.name}</span>
         {hasSubcategories && (
@@ -365,16 +357,15 @@ function MobileCategoryItem({ category }: { category: Category }) {
           }`}
         >
           <div className="pl-6 border-l-2 border-gray-200 ml-3">
-            {category.catageories.map((subcategory) => (
+            {category?.catageories?.map((subcategory) => (
               <Link
                 href={`/category/${subcategory.name}`}
                 key={subcategory.id}
                 className="flex items-center p-2 hover:bg-gray-50 rounded-lg my-1"
-                onClick={() => setIsOpen(false)}
               >
                 {subcategory.icon && (
                   <Image
-                    src={subcategory.icon.url}
+                    src={subcategory.icon}
                     alt={`${subcategory.name} icon`}
                     width={20}
                     height={20}

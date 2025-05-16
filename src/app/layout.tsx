@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     canonical: `${process.env.NEXT_PUBLIC_FRONTEND_URL}`,
   },
   openGraph: {
-    title: "MERN Blog — Learn MERN Stack, System Design & Modern Web Dev",
+    title: "MERN Blog | Learn MERN Stack, System Design & Modern Web Dev",
     description:
       "Your go-to blog for mastering the MERN Stack, coding patterns, debugging strategies, and scalable web architecture.",
     url: `${process.env.NEXT_PUBLIC_FRONTEND_URL}`,
