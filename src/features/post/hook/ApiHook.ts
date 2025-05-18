@@ -80,7 +80,7 @@ export async function getBlogPosts(
         headers: {
           Authorization: `Bearer ${process.env.NEXT_PUBLIC_TOKEN}`,
         },
-        next: { revalidate: 3600 }, // ISR: Revalidate every hour
+        next: { revalidate: 60 }, // ISR: Revalidate every hour
       }
     );
 
