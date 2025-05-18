@@ -10,7 +10,7 @@ export interface data {
   likes: number;
   slug: string;
   comments: null;
-  content: [];
+  content: string;
   createdAt: Date;
   updatedAt: Date;
   publishedAt: Date;

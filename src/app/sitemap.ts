@@ -15,7 +15,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const { data } = await res.json();
 
   const baseUrl =
-    process.env.NEXT_PUBLIC_FRONTEND_URL || "https://yourdomain.com";
+    process.env.NEXT_PUBLIC_FRONTEND_URL || "https://mernblog.com";
 
   const routes = data.map((post: BlogPost) => ({
     url: `${baseUrl}/blog/${post.slug}`,

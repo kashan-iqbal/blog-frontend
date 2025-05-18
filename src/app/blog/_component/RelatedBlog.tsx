@@ -162,7 +162,7 @@ const RelatedBlog = ({ catageory, slug }: Props) => {
                   {blog.title}
                 </h3>
                 <p className="text-gray-600 text-sm mb-4 line-clamp-2">
-                  {blog.content.children[0].text}
+                  {/* {blog.content.children[0].text} */}
                 </p>
                 <div className="flex justify-between items-center">
                   <span className="text-sm text-gray-500">
