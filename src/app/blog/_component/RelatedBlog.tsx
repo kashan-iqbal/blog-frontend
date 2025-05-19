@@ -1,6 +1,6 @@
 "use client";
 import axios from "axios";
-import { Heart } from "lucide-react";
+// import { Heart } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
@@ -166,10 +166,10 @@ const RelatedBlog = ({ catageory, slug }: Props) => {
                 </p>
                 <div className="flex justify-between items-center">
                   <span className="text-sm text-gray-500">
-                    {/* {blog.auther.name} */}
+                    {blog.auther.name}
                   </span>
                   <div className="flex items-center text-gray-500 text-sm">
-                    <Heart size={14} className="mr-1" />
+                    {/* <Heart size={14} className="mr-1" /> */}
                     {/* {blog.likes} */}
                   </div>
                 </div>

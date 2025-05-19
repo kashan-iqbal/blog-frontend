@@ -128,13 +128,14 @@ export default async function BlogPage({ params }: PageProps) {
 
         <div className="container mx-auto max-w-4xl px-4">
           {/* Hero Image */}
-          <div className="relative w-full h-80 mb-6">
+          <div className="relative w-full h-[100%] mb-6">
             <Image
               src={cover_image.url || cover_image?.formats.thumbnail.url}
               alt={title ?? "Blog post"}
-              fill
-              className="rounded-2xl object-cover"
-              // sizes="(max-width: 768px) 100vw, 800px"
+              layout="responsive" // Ensures the image is responsive
+              width={1200} // Provide a width (adjust based on your design)
+              height={675} // Provide a height (adjust based on your design)
+              className="rounded-2xl object-contain w-full h-full"
               priority={true}
             />
           </div>
@@ -183,7 +184,7 @@ export default async function BlogPage({ params }: PageProps) {
           )}
 
           {/* Article Content */}
-          <article className="bg-white shadow-md rounded-lg p-6 md:p-8 mb-8">
+          <article className="bg-white shadow-md rounded-lg md:p-8 mb-8">
             <Article content={content} />
           </article>
 
