@@ -10,7 +10,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "MERN Blog — Learn MERN Stack, System Design & Modern Web Dev",
+  title: "MERN Blog | Learn MERN Stack, System Design & Modern Web Dev",
   description:
     "Read expert-level blogs on the MERN Stack, JavaScript, system design, debugging, and modern web development. Stay ahead with tutorials, patterns, and real-world tips.",
   keywords: [
