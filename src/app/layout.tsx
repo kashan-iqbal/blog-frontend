@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { EmailPopup } from "@/features/subcribe/get-user-mail";
 const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
@@ -57,6 +58,7 @@ export default function RootLayout({
       >
         <Header />
         {children}
+        <EmailPopup />
         <Footer />
       </body>
     </html>

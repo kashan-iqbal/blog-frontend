@@ -1,5 +1,7 @@
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
+import { vscDarkPlus } from "react-syntax-highlighter/dist/esm/styles/prism";
 import { Components } from "react-markdown";
 
 interface ArticleProps {
@@ -116,21 +118,38 @@ export default function Article({ content }: ArticleProps) {
       inline?: boolean;
       className?: string;
       children?: React.ReactNode;
-    }) => (
-      <code
-        style={{
-          backgroundColor: inline ? "#f0f0f0" : "transparent",
-          padding: inline ? "0.2rem 0.4rem" : undefined,
-          borderRadius: "3px",
-          fontFamily: `"Fira Code", "Source Code Pro", Menlo, Consolas, Monaco, monospace`,
-          fontSize: "0.95rem",
-        }}
-        className={className}
-        {...props}
-      >
-        {children}
-      </code>
-    ),
+    }) => {
+      const match = /language-(\w+)/.exec(className || "");
+      return !inline && match ? (
+        <SyntaxHighlighter
+          style={vscDarkPlus}
+          language={match[1]}
+          PreTag="div"
+          customStyle={{
+            borderRadius: "5px",
+            fontSize: "0.95rem",
+            padding: "1rem",
+          }}
+          {...props}
+        >
+          {String(children).replace(/\n$/, "")}
+        </SyntaxHighlighter>
+      ) : (
+        <code
+          style={{
+            backgroundColor: "#373737",
+            color:"white",
+            padding: "0.2rem 0.4rem",
+            borderRadius: "3px",
+            fontFamily: `"Fira Code", "Source Code Pro", Menlo, Consolas, Monaco, monospace`,
+            fontSize: "0.95rem",
+          }}
+          {...props}
+        >
+          {children}
+        </code>
+      );
+    },
     table: ({ children }) => (
       <div style={{ overflowX: "auto" }}>
         <table

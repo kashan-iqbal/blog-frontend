@@ -113,7 +113,7 @@ export default async function BlogPage({ params }: PageProps) {
       catageory,
     } = blog;
     return (
-      <div className="bg-gradient-to-b from-indigo-50 to-white min-h-screen pb-12 mt-18">
+      <div className="bg-gradient-to-b from-indigo-50 to-white min-h-screen pb-12 mt-30">
         {/* Structured Data for SEO */}
         {seo?.[0]?.structuredData && (
           <script
@@ -161,9 +161,9 @@ export default async function BlogPage({ params }: PageProps) {
           </div>
 
           {/* Title */}
-          <h1 className="text-4xl font-extrabold text-gray-900 mb-6">
+          {/* <h1 className="text-4xl font-extrabold text-gray-900 mb-6">
             {title}
-          </h1>
+          </h1> */}
 
           {/* Tags */}
           {tags?.length > 0 && (

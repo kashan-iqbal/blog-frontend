@@ -75,7 +75,7 @@ export async function getBlogPosts(
 ): Promise<{ blogs: BlogItem[]; pagination: PaginationMeta }> {
   try {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/blogs?fields[0]=title&fields[1]=slug&fields[2]=id&fields[3]=createdAt&populate[cover_image][fields][0]=url&populate[auther][fields][0]=name&populate[tags][fields][0]=tag&pagination[page]=${page}&pagination[pageSize]=${pageSize}`,
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/blogs?fields[0]=title&fields[1]=slug&fields[2]=id&fields[3]=createdAt&populate[cover_image][fields][0]=url&populate[auther][fields][0]=name&populate[tags][fields][0]=tag&pagination[page]=${page}&pagination[pageSize]=${pageSize}&sort[createdAt]=desc`,
       {
         headers: {
           Authorization: `Bearer ${process.env.NEXT_PUBLIC_TOKEN}`,

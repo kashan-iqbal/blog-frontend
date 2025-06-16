@@ -85,8 +85,8 @@ export async function generateMetadata({
     },
     twitter: {
       card: "summary_large_image",
-      title: `${category} Blogs - MERN Blog`,
-      description: `Read about ${category} and more on MERN Blog — expert tips for developers.`,
+      title: `${category} Blogs | MERN Blog`,
+      description: `Read about ${category} and more on MERN Blog | expert tips for developers.`,
       images: ["/og-cover.png"],
     },
   };

@@ -70,7 +70,7 @@ export default function BlogFeatures() {
   return (
     <>
       {/* Scroll Progress Bar - Fixed at top */}
-      <div className="fixed top-15 left-0 w-full h-1 z-50 bg-gray-200 ">
+      <div className="fixed top-13 md:top-28 left-0 w-full h-1 z-50 bg-gray-200 ">
         <div
           className="h-full bg-indigo-600  transition-all duration-150"
           style={{ width: `${scrollProgress}%` }}

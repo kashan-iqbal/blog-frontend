@@ -5,7 +5,7 @@ import { Suspense } from "react";
 
 export default function Home() {
   return (
-    <div className="container mx-auto px-1 py-8 mt-18">
+    <div className="container mx-auto px-1 py-8 mt-30">
       <Suspense
         fallback={
           <div className="flex flex-wrap justify-center items-center gap-6">
