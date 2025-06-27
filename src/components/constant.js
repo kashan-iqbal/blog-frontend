@@ -147,7 +147,7 @@ export const cat = [
     catageories: [
       {
         id: 1,
-        name: "CI/CD with GitHub Actions",
+        name: "CI CD with GitHub Actions",
         icon: gitAction,
       },
       {
@@ -157,7 +157,7 @@ export const cat = [
       },
       {
         id: 3,
-        name: "Vercel / Netlify / Render",
+        name: "Vercel + Netlify + Render",
         icon: netlify,
       },
       {

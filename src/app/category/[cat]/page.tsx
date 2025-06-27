@@ -6,6 +6,7 @@ import { Tag, Clock } from "lucide-react";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 
 dayjs.extend(relativeTime);
 
@@ -65,7 +66,7 @@ export async function generateMetadata({
 
   return {
     title: `${category} Blogs - MERN Blog`,
-    description: `Explore in-depth articles and tutorials on ${category} from the MERN Blog — system design, debugging, architecture, and dev tips.`,
+    description: `Explore in-depth articles and tutorials on ${category} from the MERN Blog | system design, debugging, architecture, and dev tips.`,
     alternates: {
       canonical: `${baseUrl}/category/${encodeURIComponent(category)}`,
     },
@@ -87,7 +88,7 @@ export async function generateMetadata({
       card: "summary_large_image",
       title: `${category} Blogs | MERN Blog`,
       description: `Read about ${category} and more on MERN Blog | expert tips for developers.`,
-      images: ["/og-cover.png"],
+      images: ["/COVER_IMAGE.svg"],
     },
   };
 }
@@ -111,8 +112,14 @@ const CategoryPage = async ({ params }: CategoryPageProps) => {
     }
   );
 
+  
+
   const json = await res.json();
+  if(!json.data){
+    return notFound()
+  }
   const data: BlogData[] = json.data;
+
 
   const blogs: BlogCard[] = data.map((item) => ({
     id: item.id,
