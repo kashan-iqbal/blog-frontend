@@ -1,19 +1,85 @@
-name: Run CI/CD for the NEXTAPP
+name: CI/CD pipeline for Next.js
 
 on:
+  pull_request:
+    branches:
+      - dev
+      - main
   push:
     branches:
+      - dev
       - main
 
 jobs:
   ci:
-    name: runlint formating
+    name: CI (lint + test + build)
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
 
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
       - name: Install dependencies
+        run: npm ci
+
+      - name: Run lint
+        run: npm run lint
+
+      - name: Run tests
+        run: npm test
+
+      - name: Build Next.js app
+        run: npm run build
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: next-build
+          path: .next
+
+  deploy_qa:
+    name: Deploy to QA
+    runs-on: ubuntu-latest
+    needs: ci
+    if: github.ref == 'refs/heads/dev'
+    concurrency:
+      group: deploy-${{ github.ref }}
+      cancel-in-progress: true
+    steps:
+      - name: Download build artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: next-build
+          path: .next
+
+      - name: Simulate QA deploy
+        run: echo "🚀 Deploying to QA using build artifact..."
+
+  deploy_prod:
+    name: Deploy to Production
+    runs-on: ubuntu-latest
+    needs: ci
+    if: github.ref == 'refs/heads/main'
+    concurrency:
+      group: deploy-${{ github.ref }}
+      cancel-in-progress: true
+    steps:
+      - name: Download build artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: next-build
+          path: .next
+
+      - name: Simulate Production deploy
+        run: echo "🚀 Deploying to Production using build artifact..."
+
+      - name: Notify Slack
         run: |
-          echo "node js running the ci cd ok !!!!! "
+          curl -X POST -H 'Content-type: application/json' \
+          --data '{"text":"✅ Production deploy completed successfully!"}' \
+          ${{ secrets.SLACK_WEBHOOK_URL }}
