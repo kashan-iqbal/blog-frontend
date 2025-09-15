@@ -1,7 +1,7 @@
 // components/SkeletonCard.tsx
 export function SkeletonCard() {
   return (
-    <div className="w-full md:w-[45%] lg:w-[30%] xl:w-[25%] animate-pulse">
+    <div className="w-full md:w-[45%] lg:w-[30%] xl:w-[26%] animate-pulse">
       {/* Image placeholder */}
       <div className="bg-gray-200 aspect-video rounded-lg" />
 
