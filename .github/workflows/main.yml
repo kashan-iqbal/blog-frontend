@@ -1,0 +1,21 @@
+name: Run CI/CD for the NEXTAPP
+
+
+on:
+  push:
+    branches:
+     - dev
+
+jobs:
+   ci:
+    name: runlint formating
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+
+      - name: Install dependencies
+        run: |
+          echo "node js"
