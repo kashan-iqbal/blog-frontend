@@ -15,7 +15,7 @@ jobs:
     name: CI (lint + test + build)
     runs-on: ubuntu-latest
     env: # 👈 add this block
-      NEXT_PUBLIC_API_URL: ${{ secrets.NEXT_PUBLIC_API_URL }}
+      NEXT_PUBLIC_FRONTEND_URL: ${{ secrets.NEXT_PUBLIC_FRONTEND_URL}}
 
     steps:
       - name: Checkout code
