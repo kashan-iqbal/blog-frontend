@@ -71,11 +71,11 @@ jobs:
       group: deploy-${{ github.ref }}
       cancel-in-progress: true
     steps:
-      - name: Download build artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: next-build
-          path: .next
+      # - name: Download build artifact
+      #   uses: actions/download-artifact@v4
+      #   with:
+      #     name: next-build
+      #     path: .next
 
       - name: Simulate Production deploy
         run: echo "🚀 Deploying to Production using build artifact..."
